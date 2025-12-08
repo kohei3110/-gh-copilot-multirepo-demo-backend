@@ -159,210 +159,26 @@ API は以下の操作をサポートします:
 
 1. `src/server.ts` を開く
 2. コメントを入力開始: `// todo を完了としてマークするエンドポイントを追加`
-3. `Enter` を押して Copilot のコード提案を確認
-4. `Tab` を押して提案を受け入れ
+3. `Delegate to agent` を押して Copilot のコード提案を確認
 
-### ステップ 4.3: Web Search for Copilot を使用
+### ステップ 4.3: タスクをオーケストレーターエージェントに依頼
 
-最新情報が必要な場合:
+1. Copilot Chat を開き、`orchestrator` を選択
 
-1. Copilot Chat を開く
-2. 質問: `@websearch Node.js で Web Push API を実装するための最新のベストプラクティスは何ですか?`
-3. Copilot がウェブを検索して最新情報を提供します
+![orchestrator](../assets/orchestrator.png)
 
-## 🔔 パート 5: Web プッシュ通知を実装
+2. `期限の1日前に Web Push をする機能を実装したい` と入力
 
-### ステップ 5.1: Web Push を理解する
+3. 以下のような Todos が作成されることを確認
 
-Web Push により、サーバーはユーザーがアプリをアクティブに使用していなくても通知を送信できます。
+- issue エージェントで GitHub issue を作成
+- plan エージェントで実装計画を立てる
+- impl エージェントで実装を行う
+- review エージェントでコードレビューを行う
 
-### ステップ 5.2: プッシュ通知サービスをレビュー
+![todos](../assets/todos.png)
 
-`src/services/pushNotificationService.ts` を開いてレビュー:
-- VAPID キー生成
-- サブスクリプション管理
-- 通知送信
-
-### ステップ 5.3: プッシュ通知をテスト
-
-```bash
-# VAPID キーを生成(既に完了していますが、再生成可能)
-curl -X POST http://localhost:3000/api/push/vapid-public-key
-
-# サブスクリプションを保存(例)
-curl -X POST http://localhost:3000/api/push/subscribe \
-  -H "Content-Type: application/json" \
-  -d '{
-    "endpoint": "https://fcm.googleapis.com/fcm/send/...",
-    "keys": {
-      "p256dh": "BKXk...",
-      "auth": "abc123..."
-    }
-  }'
-
-# テスト通知を送信
-curl -X POST http://localhost:3000/api/push/send \
-  -H "Content-Type: application/json" \
-  -d '{
-    "title": "テスト通知",
-    "body": "これはテストです",
-    "data": {"url": "/"}
-  }'
-```
-
-## 🧪 パート 6: コードをテスト
-
-### ステップ 6.1: テストを実行
-
-```bash
-# すべてのテストを実行
-npm test
-
-# カバレッジ付きで実行
-npm run test:coverage
-
-# カバレッジレポートを表示
-open coverage/lcov-report/index.html  # macOS
-```
-
-### ステップ 6.2: テストカバレッジをレビュー
-
-カバレッジレポートを開いて確認:
-- 行カバレッジ: >80% であるべき
-- 分岐カバレッジ: >70% であるべき
-- 関数カバレッジ: >90% であるべき
-
-### ステップ 6.3: 新しいテストを記述
-
-`src/services/__tests__/todoService.test.ts` を開いて追加:
-
-```typescript
-describe('TodoService - Edge Cases', () => {
-  test('should handle very long todo titles', () => {
-    const longTitle = 'a'.repeat(1000);
-    const todo = todoService.createTodo(longTitle, '説明');
-    expect(todo.title).toBe(longTitle);
-  });
-});
-```
-
-テストを実行:
-```bash
-npm test -- todoService.test.ts
-```
-
-## 🚀 パート 7: Copilot Orchestra ワークフローを使用
-
-### ステップ 7.1: 新機能リクエストを作成
-
-todo に「優先度」フィールドを追加したいとします。Copilot Chat を使用:
-
-```
-@workspace TODO アイテムに優先度フィールド(低、中、高)を追加したいです。
-実装計画を作成してください。
-```
-
-### ステップ 7.2: 計画をレビュー
-
-Copilot が提案します:
-1. TypeScript の型を更新
-2. サービスレイヤーを変更
-3. API エンドポイントを更新
-4. バリデーションを追加
-5. テストを記述
-6. ドキュメントを更新
-
-### ステップ 7.3: ガイダンスに従って実装
-
-各ステップを実装するよう Copilot に依頼:
-
-```
-ステップ 1 を実装: 優先度フィールドの TypeScript 型を更新
-```
-
-提案をレビューし、必要に応じて受け入れまたは変更します。
-
-### ステップ 7.4: 変更をコミット
-
-```bash
-# 変更をステージング
-git add .
-
-# 説明的なメッセージでコミット
-git commit -m "feat: TODO アイテムに優先度フィールドを追加"
-
-# ブランチにプッシュ
-git push origin feature/add-priority
-```
-
-### ステップ 7.5: プルリクエストを作成
-
-```bash
-# GitHub CLI を使用
-gh pr create --title "TODO に優先度フィールドを追加" \
-  --body "TODO アイテムに優先度レベル(低、中、高)を実装"
-```
-
-## 🎓 パート 8: 高度なトピック
-
-### ステップ 8.1: コンテキスト対応プロンプトを使用
-
-一般的なプロンプトではなく、コンテキストを提供:
-
-**一般的:**
-```
-認証を追加するにはどうすればよいですか?
-```
-
-**コンテキスト対応:**
-```
-@workspace 現在の Express アプリの構造を見て、既存のミドルウェアと統合される 
-JWT ベースの認証をどのように追加すべきですか?
-```
-
-### ステップ 8.2: 反復的な改善
-
-最初の提案を盲目的に受け入れないでください:
-
-1. 実装を依頼
-2. レビューして問題を特定
-3. 改善を依頼: "エラーハンドリングを改善するために最適化できますか?"
-4. 満足するまで繰り返し
-
-### ステップ 8.3: エージェントファイルを探索
-
-プロジェクトにエージェント定義があるか確認:
-
-```bash
-ls -la .github/copilot-agents/
-```
-
-これらのファイルをレビューして、エージェントがどのように構成されているかを理解します。
-
-## 📝 パート 9: ベストプラクティス
-
-### 9.1 コード品質
-
-- ✅ 型安全性のために TypeScript を使用
-- ✅ すべてのビジネスロジックにテストを記述
-- ✅ 一貫した命名規則に従う
-- ✅ 複雑なロジックにコメントを追加
-- ✅ ESLint と Prettier を使用
-
-### 9.2 Copilot の使用
-
-- ✅ 明確で具体的なプロンプトを提供
-- ✅ すべての提案を受け入れる前にレビュー
-- ✅ コンテキスト対応のヘルプに `@workspace` を使用
-- ✅ 最新情報には Web Search を活用
-- ✅ 複雑なタスクを小さなステップに分解
-
-### 9.3 セキュリティ
-
-- ✅ シークレットや API キーをコミットしない
-- ✅ すべてのユーザー入力を検証
-- ✅ 設定には環境変数を使用
-- ✅ 依存関係を最新に保つ
+**表記は異なることがある点にご留意ください。orchestrator エージェントが、各エージェントにタスクを分配していることが確認できればOKです。**
 
 ## 🎯 練習問題
 
@@ -389,45 +205,7 @@ todo のタイトルと説明に全文検索機能を追加します。
 - 拡張機能が有効か確認
 - VS Code の再読み込みを試す
 
-### テストが失敗する
-- すべての依存関係がインストールされているか確認: `npm install`
-- 構文エラーをチェック
-- テスト出力を注意深くレビュー
-
-## 📚 追加リソース
+## 📚 ご参考
 
 - [GitHub Copilot ドキュメント](https://docs.github.com/ja/copilot)
-- [Express.js ガイド](https://expressjs.com/ja/guide/routing.html)
-- [TypeScript ハンドブック](https://www.typescriptlang.org/ja/docs/handbook/intro.html)
-- [Web Push API](https://developer.mozilla.org/ja/docs/Web/API/Push_API)
-
-## ✅ 完了チェックリスト
-
-- [ ] dev container 環境をセットアップ
-- [ ] 開発サーバーの起動に成功
-- [ ] すべての TODO API エンドポイントをテスト
-- [ ] 支援のために Copilot Chat を使用
-- [ ] Copilot で新機能を実装
-- [ ] テストを記述して実行
-- [ ] プルリクエストを作成
-- [ ] 少なくとも 1 つの練習問題を完了
-
-## 🎉 次のステップ
-
-このハンズオンチュートリアルの完了おめでとうございます! 以下を理解しました:
-- Copilot Orchestra ワークフローの使用方法
-- TypeScript と Express で API を構築
-- Web プッシュ通知の実装
-- テストの記述とコード品質の維持
-
-検討事項:
-- フロントエンドリポジトリを探索して完全なフルスタックアプリを構築
-- より高度な Copilot 機能
-- カスタムエージェント構成
-- GitHub Actions との CI/CD 統合
-
----
-
-**質問やフィードバック?** このリポジトリでイシューを開くか、メンテナーに連絡してください。
-
-Copilot Orchestra で楽しくコーディング! 🚀
+- [copilot-orchestra](https://github.com/ShepAlderson/copilot-orchestra)

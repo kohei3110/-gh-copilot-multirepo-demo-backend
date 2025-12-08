@@ -2,7 +2,9 @@
 
 A practical example of using **GitHub Copilot Orchestra** to build a backend for a TODO application. This project demonstrates how to leverage AI-powered development workflows with multiple specialized agents working together.
 
-## 📋 Overview
+日本語版の README は[こちら](./README-ja.md)。
+
+## Overview
 
 This repository contains the backend implementation for a TODO application, built using:
 - **Node.js** with **TypeScript**
@@ -11,7 +13,7 @@ This repository contains the backend implementation for a TODO application, buil
 
 The project showcases how to use Copilot Orchestra to orchestrate multiple AI agents (issue, plan, implementation, review, and PR agents) to streamline the development process.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -38,13 +40,13 @@ The project showcases how to use Copilot Orchestra to orchestrate multiple AI ag
    ```
 
 The dev container includes:
-- ✅ Git CLI
-- ✅ GitHub CLI (gh)
-- ✅ GitHub Copilot
-- ✅ Web Search for Copilot extension
-- ✅ ESLint & Prettier
+- Git CLI
+- GitHub CLI (gh)
+- GitHub Copilot
+- Web Search for Copilot extension
+- ESLint & Prettier
 
-## 🎯 Features
+## Features
 
 - RESTful API for TODO management (CRUD operations)
 - TypeScript for type safety
@@ -53,13 +55,13 @@ The dev container includes:
 - Comprehensive test coverage
 - Pre-configured dev container environment
 
-## 📚 Documentation
+## Documentation
 
 For detailed hands-on tutorials, see:
 - [English Hands-on Guide](./docs/HANDS_ON.md)
 - [日本語ハンズオンガイド](./docs/HANDS_ON-ja.md)
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 ├── .devcontainer/          # Dev container configuration
@@ -73,7 +75,7 @@ For detailed hands-on tutorials, see:
 └── coverage/              # Test coverage reports
 ```
 
-## 🤖 About Copilot Orchestra
+## About Copilot Orchestra
 
 Copilot Orchestra is an advanced workflow that coordinates multiple AI agents:
 
@@ -84,26 +86,6 @@ Copilot Orchestra is an advanced workflow that coordinates multiple AI agents:
 5. **PR Agent**: Creates pull requests with comprehensive descriptions
 
 This orchestrated approach ensures high-quality, well-documented code with minimal manual intervention.
-
-## 🧪 Testing
-
-Run tests with coverage:
-```bash
-npm test
-npm run test:coverage
-```
-
-## 📄 License
-
-MIT License
-
-## 🔗 Related Projects
-
-- [Frontend Repository](../gh-copilot-multirepo-demo-frontend) - React-based frontend for this TODO app
-
-## 🤝 Contributing
-
-Contributions are welcome! This project serves as a learning resource for Copilot Orchestra workflows.
 
 ---
 

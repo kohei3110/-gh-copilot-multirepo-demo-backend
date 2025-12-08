@@ -1,8 +1,8 @@
 # TODO アプリ バックエンド - Copilot Orchestra デモ
 
-**GitHub Copilot Orchestra** を使用して TODO アプリケーションのバックエンドを構築する実践例です。このプロジェクトは、複数の専門化されたエージェントが協力して動作する AI パワードな開発ワークフローを実証します。
+**GitHub Copilot Orchestra** を使用して TODO アプリケーションのバックエンドを構築する実践例です。このプロジェクトは、複数の専門化されたエージェントが協力して動作する AI 駆動な開発ワークフローを実証します。
 
-## 📋 概要
+## 概要
 
 このリポジトリには、以下の技術を使用した TODO アプリケーションのバックエンド実装が含まれています:
 - **Node.js** と **TypeScript**
@@ -11,7 +11,7 @@
 
 このプロジェクトは、Copilot Orchestra を使用して複数の AI エージェント(issue、plan、implementation、review、PR エージェント)を統制し、開発プロセスを効率化する方法を示します。
 
-## 🚀 はじめに
+## はじめに
 
 ### 前提条件
 
@@ -38,13 +38,13 @@
    ```
 
 Dev Container には以下が含まれています:
-- ✅ Git CLI
-- ✅ GitHub CLI (gh)
-- ✅ GitHub Copilot
-- ✅ Web Search for Copilot 拡張機能
-- ✅ ESLint & Prettier
+- Git CLI
+- GitHub CLI (gh)
+- GitHub Copilot
+- Web Search for Copilot 拡張機能
+- ESLint & Prettier
 
-## 🎯 機能
+## 機能
 
 - TODO 管理のための RESTful API (CRUD 操作)
 - 型安全性のための TypeScript
@@ -53,7 +53,7 @@ Dev Container には以下が含まれています:
 - 包括的なテストカバレッジ
 - 事前設定済みの dev container 環境
 
-## 📚 ドキュメント
+## ドキュメント
 
 詳細なハンズオンチュートリアルは以下を参照してください:
 - [English Hands-on Guide](./docs/HANDS_ON.md)
@@ -73,7 +73,7 @@ Dev Container には以下が含まれています:
 └── coverage/              # テストカバレッジレポート
 ```
 
-## 🤖 Copilot Orchestra について
+## Copilot Orchestra について
 
 Copilot Orchestra は、複数の AI エージェントを調整する高度なワークフローです:
 
@@ -83,27 +83,7 @@ Copilot Orchestra は、複数の AI エージェントを調整する高度な�
 4. **Review エージェント**: コード品質をレビューして改善
 5. **PR エージェント**: 包括的な説明を含むプルリクエストを作成
 
-この統制されたアプローチにより、最小限の手動介入で高品質かつよく文書化されたコードが保証されます。
-
-## 🧪 テスト
-
-カバレッジ付きでテストを実行:
-```bash
-npm test
-npm run test:coverage
-```
-
-## 📄 ライセンス
-
-MIT License
-
-## 🔗 関連プロジェクト
-
-- [フロントエンドリポジトリ](../gh-copilot-multirepo-demo-frontend) - この TODO アプリの React ベースフロントエンド
-
-## 🤝 コントリビューション
-
-コントリビューションを歓迎します! このプロジェクトは Copilot Orchestra ワークフローの学習リソースとして機能します。
+このアプローチにより、最小限の手動介入で高品質かつよく文書化されたコードが保証されます。
 
 ---
 
