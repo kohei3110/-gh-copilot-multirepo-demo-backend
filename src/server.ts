@@ -15,6 +15,11 @@ interface Todo {
 
 let todos: Todo[] = [];
 
+// GET /health
+app.get('/health', (req: Request, res: Response) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // GET /todos
 app.get('/todos', (req: Request, res: Response) => {
   res.json(todos);
