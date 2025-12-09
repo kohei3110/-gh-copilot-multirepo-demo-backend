@@ -52,6 +52,12 @@ app.put('/todos/:id', (req: Request, res: Response) => {
     return;
   }
 
+  // Validate text if provided
+  if (text !== undefined && text.trim() === '') {
+    res.status(400).json({ error: 'Text cannot be empty' });
+    return;
+  }
+
   const todo = todos[todoIndex];
   if (text !== undefined) todo.text = text;
   if (completed !== undefined) todo.completed = completed;
@@ -62,6 +68,13 @@ app.put('/todos/:id', (req: Request, res: Response) => {
 // DELETE /todos/:id
 app.delete('/todos/:id', (req: Request, res: Response) => {
   const { id } = req.params;
+  const todoIndex = todos.findIndex((t) => t.id === id);
+  
+  if (todoIndex === -1) {
+    res.status(404).json({ error: 'Todo not found' });
+    return;
+  }
+  
   todos = todos.filter((t) => t.id !== id);
   res.status(204).send();
 });
